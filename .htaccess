@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+#RewriteRule ^articulo/(.*)$ articulo.php?enlace=$1
+#RewriteRule ^categoria/(.*)$ categoria.php?enlace=$1
+
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+ErrorDocument 404 ./404
