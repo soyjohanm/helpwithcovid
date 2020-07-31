@@ -28,6 +28,14 @@
       return ( $estadistica );
     }
 
+    public function getNotificacion($id) {
+      $resultado = $this->conexion->prepare("SELECT COUNT(*) as visto FROM contacto WHERE usuario = :usuario AND visto = 0");
+      $data = array(':usuario' => $id);
+      $resultado->execute($data);
+      $estadistica = $resultado->fetch(PDO::FETCH_ASSOC);
+      return ( $estadistica );
+    }
+
     public function getPublicacion1($id) {
       $resultado = $this->conexion->prepare("SELECT * FROM publicaciones WHERE id = :id");
       $resultado->bindParam(':id', $id, PDO::PARAM_STR);
@@ -92,6 +100,17 @@
       return (($valor == 0) ? "0;La publicación se ha desactivado correctamente." : "0;La publicación se ha activado correctamente.");
     }
 
+    public function updatePublicacion1($id, $titulo, $cantidad, $categoria) {
+      try {
+        $resultado = $this->conexion->prepare("UPDATE publicaciones SET titulo = :titulo, cantidad = :cantidad, categoria = :categoria WHERE id = :id");
+        $data = array(':titulo' => $titulo, ':cantidad' => $cantidad, ':categoria' => $categoria, ':id' => $id);
+        $resultado->execute($data);
+      } catch (Exception $e) {
+        return "-1;Ha ocurrido un error. " . $e->getMessage();
+      }
+      return "0;La publicación se ha actualizado correctamente.";
+    }
+
     public function setPublicacion($titulo, $categoria, $cantidad, $usuario) {
       try {
         $resultado = $this->conexion->prepare("INSERT INTO publicaciones(titulo, categoria, cantidad, usuario, fecha) VALUES (:titulo, :categoria, :cantidad, :usuario, :fecha)");
@@ -128,6 +147,17 @@
     }
     header( 'Content-type: application/json' );
     echo json_encode($datos);
+  }
+
+  if(!empty($_POST['editar'])) {
+    $titulo = strtolower($_POST['nombre']);
+    $categoria= strtolower($_POST['categoria']);
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+      $nuevaPublicacion = new Publicaciones();
+      $resultado = $nuevaPublicacion->updatePublicacion1($_POST['publicacion'], $titulo, $_POST['cantidad'], $categoria);
+      echo $resultado;
+    }
+    exit;
   }
 
   if (!empty($_POST)) {

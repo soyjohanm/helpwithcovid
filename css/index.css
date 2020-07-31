@@ -3,6 +3,10 @@
   --color-fondo: #f5f5f5;
 }
 
+.azul {
+  background-color: var(--color-principal) !important;
+}
+
 body {
   display: flex;
   min-height: 100vh;

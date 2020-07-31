@@ -11,6 +11,7 @@
 
     $existe = new Publicaciones();
     $publicaciones = $existe->getPublicaciones($_SESSION['id'], $filtro);
+    $totalNotificacion = $existe->getNotificacion($_SESSION['id']);
 
     require_once ( './vista/Cabecera.vista.php' );
     require_once ( './vista/Publicaciones.vista.php' );

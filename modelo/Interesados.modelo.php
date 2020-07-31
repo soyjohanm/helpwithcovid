@@ -23,6 +23,14 @@
       return ( $contacto );
     }
 
+    public function getNotificacion($id) {
+      $resultado = $this->conexion->prepare("SELECT COUNT(*) as visto FROM contacto WHERE usuario = :usuario AND visto = 0");
+      $data = array(':usuario' => $id);
+      $resultado->execute($data);
+      $estadistica = $resultado->fetch(PDO::FETCH_ASSOC);
+      return ( $estadistica );
+    }
+    
     public function setContacto($publicacion, $telefono, $pais, $cantidad, $descripcion, $usuario) {
       $resultado = $this->conexion->prepare("INSERT INTO contacto(publicacion, numero, pais, cantidad, descripcion, usuario, fecha) VALUES (:publicacion, :numero, :pais, :cantidad, :descripcion, :usuario, :fecha)");
       $data = array(':publicacion' => $publicacion, ':numero' => $telefono, ':pais' => $pais, ':cantidad' => $cantidad, ':descripcion' => $descripcion, ':usuario' => $usuario, ':fecha' => date('Y-m-d'));

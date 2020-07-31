@@ -6,10 +6,12 @@
       require_once ( './modelo/Publicaciones.modelo.php' );
       $existe = new Publicaciones();
       $publicacion = $existe->getPublicacion1($_GET['publicacion']);
+      $totalNotificacion = $existe->getNotificacion($_SESSION['id']);
     } else {
       require_once ( './modelo/Interesados.modelo.php' );
       $existe = new Contacto();
       $contactos = $existe->getContactos($_SESSION['id']);
+      $totalNotificacion = $existe->getNotificacion($_SESSION['id']);
     }
 
     require_once ( './vista/Cabecera.vista.php' );

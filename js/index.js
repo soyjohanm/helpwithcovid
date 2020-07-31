@@ -95,6 +95,24 @@ $('#formularioPublicar').submit(function(event) {
   event.preventDefault();
 });
 
+$('#formularioEditar').submit(function(event) {
+  var parametros = $(this).serialize() + '&editar=editar';
+  $.ajax({
+    type: "POST",
+    url: "./modelo/Publicaciones.modelo.php",
+    data: parametros,
+    success: function(data) {
+      var datos = data.split(";");
+      if (datos[0] != 0) { M.toast({html: datos[1], classes: 'red darken-2'}); }
+      else {
+        M.toast({html: datos[1], classes: 'green darken-2'});
+        setTimeout(function(){ window.location="./publicaciones" }, 1000);
+      }
+    }
+  });
+  event.preventDefault();
+});
+
 $('.eliminar').click(function(){
   var confirmar=confirm("¿Realmente deseas eliminar esta publicación?");
   if(confirmar) {
