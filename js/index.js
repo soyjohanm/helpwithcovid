@@ -1,7 +1,5 @@
 $(document).ready(function(){
-  $('.collapsible').collapsible();
-  $('.dropdown-trigger').dropdown();
-  $('.modal').modal();
+  M.AutoInit();
   $(function() {
     /*var directorio = <?php echo "(basename($_SERVER['SCRIPT_NAME']))"; ?>;
     console.log(directorio);*/
