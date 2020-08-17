@@ -75,7 +75,7 @@ $('#formularioContacto').submit(function(event) {
   event.preventDefault();
 });
 
-$('#formularioPublicar').submit(function(event) {
+/*$('#formularioPublicar').submit(function(event) {
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
@@ -91,7 +91,7 @@ $('#formularioPublicar').submit(function(event) {
     }
   });
   event.preventDefault();
-});
+});*/
 
 $('#formularioEditar').submit(function(event) {
   var parametros = $(this).serialize() + '&editar=editar';
@@ -125,7 +125,7 @@ $('.eliminar').click(function(){
         if (datos[0] != 0) { M.toast({html: datos[1], classes: 'red darken-2'}); }
         else {
           M.toast({html: datos[1], classes: 'green darken-2'});
-          setTimeout(function(){ window.location=document.referrer }, 1000);
+          setTimeout(function(){ window.location="./publicaciones" }, 1000);
         }
       }
     });

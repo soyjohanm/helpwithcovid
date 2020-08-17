@@ -73,7 +73,7 @@
   </div>
 </div>
 <div id="publicar" class="modal">
-  <form method="post" autocomplete="off" role="form" id="formularioPublicar" name="formularioPublicar">
+  <form method="post" autocomplete="off" role="form" action="./modelo/Publicar.modelo.php" name="formularioPublicar" enctype="multipart/form-data">
     <div class="modal-content">
       <h4>Nueva publicación</h4>
       <div class="row">
@@ -85,6 +85,15 @@
         </div>
         <div class="input-field col l2">
           <input placeholder="Cantidad" id="cantidad" name="cantidad" type="number" min="0" required>
+        </div>
+        <div class="file-field input-field col l12">
+          <div class="btn">
+            <span>Seleccionar</span>
+            <input type="file" name="imagen" accept="image/png, .jpeg, .jpg, image/gif">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Seleccione una imagen para su publicación.">
+          </div>
         </div>
         <input type="text" name="usuario" id="usuario" value="<?php echo $_SESSION['id']; ?>" hidden>
       </div>

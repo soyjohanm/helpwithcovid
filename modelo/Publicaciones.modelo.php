@@ -14,7 +14,7 @@
     }
 
     public function getPublicacion() {
-      $resultado = $this->conexion->prepare("SELECT * FROM publicaciones WHERE estado = 1 ORDER BY fecha DESC, id DESC");
+      $resultado = $this->conexion->prepare("SELECT * FROM publicaciones INNER JOIN imagenes ON publicaciones.id=imagenes.publicacion WHERE estado = 1 ORDER BY fecha DESC, publicaciones.id DESC ");
       $resultado->execute();
       $publicaciones = $resultado->fetchAll(PDO::FETCH_ASSOC);
       return ( $publicaciones );
@@ -119,6 +119,17 @@
       } catch (Exception $e) {
         return "-1;Ha ocurrido un error. " . $e->getMessage();
       }
+      return $this->conexion->lastInsertId();
+    }
+
+    public function setImagen($nombre, $tipo, $publicacion, $archivo) {
+      try {
+        $resultado = $this->conexion->prepare("INSERT INTO imagenes(nombre, tipo, publicacion, archivo) VALUES (:nombre, :tipo, :publicacion, :archivo)");
+        $data = array(':nombre' => $nombre, ':tipo' => $tipo, ':publicacion' => $publicacion, ':archivo' => $archivo);
+        $resultado->execute($data);
+      } catch (Exception $e) {
+        return "-1;Ha ocurrido un error. " . $e->getMessage();
+      }
       return "0;La publicación ha sido publicada.";
     }
 
@@ -158,17 +169,6 @@
       echo $resultado;
     }
     exit;
-  }
-
-  if (!empty($_POST)) {
-    $titulo = strtolower($_POST['nombre']);
-    $categoria= strtolower($_POST['categoria']);
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      $nuevaPublicacion = new Publicaciones();
-      $resultado = $nuevaPublicacion->setPublicacion($titulo, $categoria, $_POST['cantidad'], $_POST['usuario']);
-      echo $resultado;
-      exit;
-    }
   }
 
 ?>

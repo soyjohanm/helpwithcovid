@@ -9,7 +9,7 @@
         <div class="col l3">
         <div class="card">
           <div class="card-image">
-            <img src="">
+            <img src=<?php echo "'data:image/png;base64," . base64_encode($publicacion['archivo']) . "'"; ?>>
             <span class="card-title"><?php echo ucfirst($publicacion['titulo']); ?></span>
           </div>
           <div class="card-content">
